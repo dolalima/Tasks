@@ -6,7 +6,8 @@
 package com.facol.dola.business;
 
 import com.facol.dola.models.Activity;
-import com.facol.dola.models.User;
+import com.facol.dola.repository.ActivityJpaController;
+import com.facol.dola.tools.PersistenceUnit;
 
 /**
  *
@@ -14,13 +15,30 @@ import com.facol.dola.models.User;
  */
 public class ActivityBLL {
     
+    private ActivityBLL instance;
+    private final ActivityJpaController actitityRepository;  
+
+    public ActivityBLL() {
+        actitityRepository = new ActivityJpaController(PersistenceUnit.getEntityManagerFactory());
+    }
+    
+    public ActivityBLL getInstance(){
+        if(instance==null){
+            instance = new ActivityBLL();
+        }
+        return instance;
+    }
     
     
-    public void create(Activity user){
+    
+    
+    public void create(Activity activity){
+        
+        actitityRepository.create(activity);
     }
-    public void update(Activity user){
+    public void update(Activity activity){
     }
-    public void remove(Activity user){
+    public void remove(Activity activity){
     }
     
 }

@@ -6,11 +6,15 @@
 package com.facol.dola.models;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,15 +24,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 public class User extends BaseEntity implements Serializable {
+    
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique=true)
     private String email;
     private String name;
+    @Column(unique=true)
     private String cpf;
     @OneToOne
     private Address address;
+    @OneToMany(mappedBy = "user")
+    private List<Activity> activities;
 
     public Long getId() {
         return id;
@@ -68,7 +78,15 @@ public class User extends BaseEntity implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
-    }    
+    } 
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
 
     @Override
     public int hashCode() {
