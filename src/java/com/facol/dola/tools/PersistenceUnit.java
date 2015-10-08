@@ -14,7 +14,7 @@ public abstract class PersistenceUnit {
     private static EntityManagerFactory entityManagerFactory;
     
     public static void start(){
-        PersistenceUnit.entityManagerFactory = Persistence.createEntityManagerFactory("SistemaPU2");
+        PersistenceUnit.entityManagerFactory = Persistence.createEntityManagerFactory("SistemaPU");
     }
     
     public static void close(){
