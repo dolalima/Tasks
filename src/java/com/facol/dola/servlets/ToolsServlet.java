@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.facol.dola.controllers;
+package com.facol.dola.servlets;
 
+import com.facol.dola.tools.PersistenceUnit;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dolalima
  */
-@WebServlet(name = "Users", urlPatterns = {"/users"})
-public class Users extends HttpServlet {
+@WebServlet(name = "ToolsServlet", urlPatterns = {"/tools"})
+public class ToolsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,16 +32,18 @@ public class Users extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PersistenceUnit.start();
+        PersistenceUnit.close();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Users</title>");            
+            out.println("<title>Servlet ToolsServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Users at " + request.getContextPath() + "</h1>");
+            out.println("<h1>" + "Banco de Dados" + "</h1>"); 
             out.println("</body>");
             out.println("</html>");
         }

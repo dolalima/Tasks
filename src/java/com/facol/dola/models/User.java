@@ -13,9 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,9 +33,7 @@ public class User extends BaseEntity implements Serializable {
     private String email;
     private String name;
     @Column(unique=true)
-    private String cpf;
-    @OneToOne
-    private Address address;
+    private String cpf;    
     @OneToMany(mappedBy = "user")
     private List<Activity> activities;
 
@@ -71,15 +68,8 @@ public class User extends BaseEntity implements Serializable {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    } 
-
+    
+    @XmlTransient
     public List<Activity> getActivities() {
         return activities;
     }

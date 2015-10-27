@@ -15,20 +15,12 @@ import com.facol.dola.tools.PersistenceUnit;
  */
 public class ActivityBLL {
     
-    private ActivityBLL instance;
+    
     private final ActivityJpaController actitityRepository;  
 
     public ActivityBLL() {
         actitityRepository = new ActivityJpaController(PersistenceUnit.getEntityManagerFactory());
     }
-    
-    public ActivityBLL getInstance(){
-        if(instance==null){
-            instance = new ActivityBLL();
-        }
-        return instance;
-    }
-    
     
     
     

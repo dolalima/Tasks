@@ -15,28 +15,26 @@ import com.facol.dola.tools.PersistenceUnit;
  */
 public class UserBLL {
 
-    private UserBLL instance;
-    private final UserJpaController userRepository;
+    
+    private UserJpaController userRepository;
 
     public UserBLL() {
         userRepository = new UserJpaController(PersistenceUnit.getEntityManagerFactory());
     }
+    
 
-    public UserBLL getInstance() {
-        if (instance == null) {
-            instance = new UserBLL();
-        }
-        return instance;
+    public void create(User user) throws Exception {
 
-    }
-
-    public void create(User user) {
-
-        userRepository.findByCpf(user.getCpf());
-
-        userRepository.create(user);
+        User userSearch = userRepository.findByCpf(user.getCpf());
+        if(userSearch!=null){
+            throw new Exception("Usuário já existe no bando de dados");
+        }else{
+            userRepository.create(user);
+        }        
 
     }
+    
+    
 
     public void update(User user) {
         try {
