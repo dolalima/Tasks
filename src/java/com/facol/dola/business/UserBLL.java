@@ -22,6 +22,10 @@ public class UserBLL {
         userRepository = new UserJpaController(PersistenceUnit.getEntityManagerFactory());
     }
     
+    public User findByCpf(String cpf){
+        return userRepository.findByCpf(cpf);
+    }
+    
 
     public void create(User user) throws Exception {
 

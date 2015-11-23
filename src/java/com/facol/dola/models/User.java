@@ -37,6 +37,11 @@ public class User extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Activity> activities;
 
+    public User() {
+    }
+    
+    
+
     public Long getId() {
         return id;
     }
