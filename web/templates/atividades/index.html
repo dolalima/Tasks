@@ -1,16 +1,29 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div class="panel panel-default" ng-controller="TaskListController as listController">
+    <div class="panel-heading">Lista de Atividades</div>
+    <div class="panel-body">        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="header">Data</th>
+                    <th class="header">Assunto</th>
+                    <th class="header">Descrição</th>
+                    <th class="header">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="model in listController.lista">
+                    <td>{{model.data}}</td>
+                    <td>{{model.title}}</td>
+                    <td>{{model.content}}</td>
+                    <td style="min-width: 40px;max-width: 70px">
+                        <div class="btn-group">
+                            <a href="#/task/{{model.id}}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i><span class="hidden-xs hidden-sm"> Editar</span></a>
+                            <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i><span class="hidden-xs hidden-sm"> Excluir</span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+</div>
+
