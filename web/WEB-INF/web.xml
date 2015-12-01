@@ -4,9 +4,25 @@
         <servlet-name>AtividadesServlets</servlet-name>
         <servlet-class>com.facol.dola.servlets.AtividadesServlets</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.facol.dola.servlets.LoginServlet</servlet-class>
+        <init-param>
+            <param-name>login</param-name>
+            <param-value/>
+        </init-param>
+        <init-param>
+            <param-name>password</param-name>
+            <param-value/>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AtividadesServlets</servlet-name>
         <url-pattern>/atividades</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

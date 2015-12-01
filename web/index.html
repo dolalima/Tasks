@@ -6,31 +6,45 @@ and open the template in the editor.
 -->
 <html ng-app="Tasks">
     <head>
-        <title>TODO supply a title</title>
+        <title>{{appName}}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="assets/js/jquery-2.1.4.min.js"></script>
-        
+
         <link rel="stylesheet" href="assets/css/mdl/material.css">
         <script src="assets/css/mdl/material.js"></script>
-        
+
         <link rel="stylesheet" href="assets/css/bootstrap.css">
         <script src="assets/js/bootstrap.js"></script>
-        
-        
-        
+
+
+
         <script src="assets/js/angular-1.4.6/angular.js"></script>
         <script src="assets/js/angular-1.4.6/angular-route.js"></script>
+        <script src="assets/js/angular-1.4.6/angular-ui-router.js"></script>
         
-        
+
+
         <script src="app/config.js"></script>
-        <script src="app/app.js"></script>
+        <script src="app/app.js"></script>       
         <script src="app/router.js"></script>
         <script src="app/controllers.js"></script>
+        <script src="app/directives.js"></script>
     </head>
-    <body>
-        <div ng-view="">
+    <body ng-controller="ApplicationController">        
+        <div ng-if="currentUser">Welcome, {{ currentUser.name}}</div>
+        <div ng-if="isAuthorized(userRoles.admin)">You're admin.</div>
+        <div ng-switch on="currentUser.role">
+            <div ng-switch-when="userRoles.admin">You're admin.</div>
+            <div ng-switch-when="userRoles.editor">You're editor.</div>
+            <div ng-switch-default>You're something else.</div>
+        </div>
+        <div login-dialog ng-if="!isLoginPage">
             
+        </div>
+        <div ng-if="!currentUser" ng-include="'templates/auth/form.html'"></div>
+        <div ng-if="currentUser" ng-view="">
+
         </div>
     </body>
 </html>

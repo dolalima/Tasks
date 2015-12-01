@@ -1,2 +1,2 @@
-angular.module(appName, ['ngRoute']);
+angular.module(appName, ['ngRoute','ui.router']);
 

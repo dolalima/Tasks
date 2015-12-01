@@ -7,12 +7,14 @@ package com.facol.dola.repository;
 
 import com.facol.dola.repository.exceptions.NonexistentEntityException;
 import com.facol.dola.models.Activity;
+import com.facol.dola.models.User;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -130,6 +132,17 @@ public class ActivityJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<Activity> findByUserCpf(String cpf) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Activity> query = em.createQuery("select e from Activity e INNER JOIN e.user u where u.cpf = '"+cpf+"'",Activity.class);              
+            
+            return query.getResultList();
         } finally {
             em.close();
         }

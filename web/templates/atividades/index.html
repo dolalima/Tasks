@@ -1,5 +1,10 @@
 <div class="panel panel-default" ng-controller="TaskListController as listController">
-    <div class="panel-heading">Lista de Atividades</div>
+    <div class="panel-heading">Lista de Atividades
+        <div class="pull-right">
+            <button type="button" ng-click="listController.updateList()"><i class="glyphicon glyphicon-refresh"></i></button>
+            <a href="#/task" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-plus"></i> Atividade</a>
+        </div>
+    </div>
     <div class="panel-body">        
         <table class="table table-bordered">
             <thead>
@@ -12,9 +17,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="model in listController.lista">
-                    <td>{{model.data}}</td>
-                    <td>{{model.title}}</td>
-                    <td>{{model.content}}</td>
+                    <td>{{model.date}}</td>
+                    <td>{{model.subject}}</td>
+                    <td>{{model.description}}</td>
                     <td style="min-width: 40px;max-width: 70px">
                         <div class="btn-group">
                             <a href="#/task/{{model.id}}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i><span class="hidden-xs hidden-sm"> Editar</span></a>

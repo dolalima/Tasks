@@ -1,31 +1,25 @@
-package com.facol.dola.servlets;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.facol.dola.business.ActivityBLL;
-import com.facol.dola.business.UserBLL;
-import com.facol.dola.models.Activity;
+package com.facol.dola.servlets;
+
 import com.facol.dola.models.User;
-import com.facol.dola.tools.PersistenceUnit;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  *
  * @author dolalima
  */
-public class AtividadesServlets extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +38,10 @@ public class AtividadesServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AtididadesServlets</title>");
+            out.println("<title>Servlet LoginServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AtididadesServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,20 +73,20 @@ public class AtividadesServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PersistenceUnit.start();
-
-        switch (request.getParameter("option")) {
-            case "findByUser":
-                this.findByUser(request, response);
-                break;
-            case "create":
-                this.update(request, response);
-                break;
+        JSONObject json = new JSONObject();
+        User user = new User();
+        user.setId(1l);
+        user.setName("Carlos Eduardo de Souza Lima");
+        user.setEmail("dolaima@gmail.com");
+        user.setCpf("070.058.184-74");
+        json.put("erro",false);
+        json.put("entidade", user.toJSONObject());
+        
+        try (PrintWriter out = response.getWriter()) {
+           out.println(json.toString()); 
+        }catch(Exception e){
+            
         }
-
-        PersistenceUnit.close();
-
     }
 
     /**
@@ -104,36 +98,5 @@ public class AtividadesServlets extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void update(HttpServletRequest request, HttpServletResponse response) {
-        Activity activity = new Activity(request);
-        ActivityBLL activityBLL = new ActivityBLL();
-        UserBLL userBLL = new UserBLL();
-        User user = userBLL.findByCpf(request.getParameter("cpf"));
-        activity.setUser(user);
-        activityBLL.create(activity);
-    }
-
-    private void findByUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        ActivityBLL activityBLL = new ActivityBLL();
-        List<Activity> activities = activityBLL.findByCpf(request.getParameter("cpf"));
-
-        JSONObject json = new JSONObject();
-        JSONArray array = new JSONArray();
-        
-        for(Activity e:activities){
-            
-            array.put(e.toJSONObject());
-        }
-
-        json.put("erro", false);
-        json.put("entidades", array);
-
-        try (PrintWriter out = response.getWriter()) {
-            out.print(json.toString());
-        }
-
-    }
 
 }

@@ -8,6 +8,7 @@ package com.facol.dola.business;
 import com.facol.dola.models.Activity;
 import com.facol.dola.repository.ActivityJpaController;
 import com.facol.dola.tools.PersistenceUnit;
+import java.util.List;
 
 /**
  *
@@ -31,6 +32,10 @@ public class ActivityBLL {
     public void update(Activity activity){
     }
     public void remove(Activity activity){
+    }
+
+    public List<Activity> findByCpf(String parameter) {
+        return actitityRepository.findByUserCpf(parameter);
     }
     
 }

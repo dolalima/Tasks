@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.json.JSONObject;
 
 /**
  *
@@ -106,6 +107,11 @@ public class User extends BaseEntity implements Serializable {
     @Override
     public String toString() {
         return "com.facol.dola.models.User[ id=" + id + " ]";
+    }
+    
+    public JSONObject toJSONObject(){
+        JSONObject json = new JSONObject(this);
+        return json;
     }
     
 }

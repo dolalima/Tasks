@@ -6,6 +6,8 @@
 package com.facol.dola.models;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.json.JSONObject;
 
 /**
  *
@@ -29,7 +33,9 @@ public class Activity extends BaseEntity implements Serializable {
     private Long id;
     @Column(unique=true)
     private String subject;
-    private String description;    
+    private String description;       
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date;
     @ManyToOne
     private User user;
 
@@ -74,6 +80,16 @@ public class Activity extends BaseEntity implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    
     
 
     @Override
@@ -99,6 +115,16 @@ public class Activity extends BaseEntity implements Serializable {
     @Override
     public String toString() {
         return "com.facol.dola.models.Activity[ id=" + id + " ]";
+    }
+    
+    public JSONObject toJSONObject(){
+        JSONObject json = new JSONObject();
+        SimpleDateFormat dt = new SimpleDateFormat("dd-mm-yyyy");
+        json.put("id",this.id);
+        json.put("date", dt.format(date));
+        json.put("subject", this.subject);
+        json.put("description", this.description);        
+        return json;
     }
     
 }
